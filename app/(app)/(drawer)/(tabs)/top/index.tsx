@@ -109,12 +109,14 @@ export default function TopScreen() {
 
   const renderHeader = () => {
     return (
-      <View
-        style={{
-          paddingHorizontal: SIZING.margin.horizontal,
-        }}
-      >
-        <Text style={[screenStyles.header, colorPrimary]}>
+      <View>
+        <Text
+          style={[
+            screenStyles.header,
+            { paddingHorizontal: SIZING.margin.horizontal },
+            colorPrimary,
+          ]}
+        >
           {i18n.t("navigation.tabs.link2")}
         </Text>
         <TmdbFilter

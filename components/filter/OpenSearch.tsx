@@ -27,7 +27,10 @@ export default function OpenSearch() {
         <SearchSvg width={18} height={18} color={DARK.color.gray} />
         {/* Here's a fake TextInput because Android TextInput's size is different than iOS */}
         {/* Threfore, create a gap with other's screens filter bar */}
-        <Text style={[filterStyles.placeholder, { color: DARK.color.gray }]}>
+        <Text
+          style={[filterStyles.placeholder, { color: DARK.color.gray }]}
+          numberOfLines={1}
+        >
           {i18n.t("screen.search.placeholder")}
         </Text>
       </Pressable>
