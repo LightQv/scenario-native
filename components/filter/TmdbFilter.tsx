@@ -9,6 +9,7 @@ import { useThemeContext } from "@/app/context/ThemeContext";
 import filterStyles from "../../styles/filter.style";
 import useStyle from "@/hooks/useStyle";
 import Button from "../ui/Button";
+import { SIZING } from "@/constants/theme";
 
 type TmdbFilterProps = {
   fetchParams: {
@@ -55,7 +56,11 @@ export default function TmdbFilter({
   return (
     <ScrollView
       horizontal
-      contentContainerStyle={[filterStyles.container, backgroundPrimary]}
+      contentContainerStyle={[
+        filterStyles.container,
+        { paddingHorizontal: SIZING.margin.horizontal },
+        backgroundPrimary,
+      ]}
       showsHorizontalScrollIndicator={false}
     >
       {fetchParams.type && (

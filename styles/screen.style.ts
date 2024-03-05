@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 import { FONTS, SIZING } from "@/constants/theme";
 
@@ -13,7 +13,7 @@ const screenStyles = StyleSheet.create({
     paddingBottom: SIZING.header.height * 2.2,
   },
   noTabScreen: {
-    marginBottom: SIZING.margin.vertical * 2,
+    marginBottom: Platform.OS === "ios" ? SIZING.margin.vertical * 2 : 0,
   },
   header: {
     fontFamily: FONTS.abril,

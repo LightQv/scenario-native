@@ -12,6 +12,7 @@ const TabsLayout = () => {
 
   return (
     <Tabs
+      initialRouteName="index"
       backBehavior="history"
       screenOptions={{
         tabBarStyle: {
@@ -51,7 +52,7 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="discover"
+        name="index"
         options={{
           tabBarIcon: ({ color }) => (
             <DiscoverSvg
@@ -60,7 +61,8 @@ const TabsLayout = () => {
               color={color}
             />
           ),
-          headerShown: false,
+
+          headerTransparent: true,
         }}
       />
       <Tabs.Screen
@@ -76,7 +78,6 @@ const TabsLayout = () => {
           headerShown: false,
         }}
       />
-      <Tabs.Screen name="index" options={{ href: null }} />
     </Tabs>
   );
 };
