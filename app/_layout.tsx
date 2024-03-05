@@ -24,6 +24,7 @@ import { ThemeProvider } from "@/app/context/ThemeContext";
 import { WatchlistProvider } from "@/app/context/WatchlistContext";
 import CloseModal from "@/components/action/CloseModal";
 import { BannerProvider } from "./context/BannerContext";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -52,7 +53,11 @@ export default function App() {
             <WatchlistProvider>
               <ViewProvider>
                 <BottomSheetModalProvider>
-                  <RootLayout />
+                  <GestureHandlerRootView
+                    style={{ height: "100%", width: "100%" }}
+                  >
+                    <RootLayout />
+                  </GestureHandlerRootView>
                   <Toasts overrideDarkMode={!darkTheme} />
                 </BottomSheetModalProvider>
               </ViewProvider>

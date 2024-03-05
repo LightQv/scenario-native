@@ -10,7 +10,6 @@ import Animated, {
 import i18n from "@/services/i18n";
 import BackAction from "@/components/action/BackAction";
 import TabHeader from "@/components/navigation/TabHeader";
-import { useNavigation } from "expo-router/src/useNavigation";
 import { useThemeContext } from "@/app/context/ThemeContext";
 import screenStyles from "../../../../styles/screen.style";
 import { FONTS, SIZING } from "@/constants/theme";
@@ -19,7 +18,7 @@ import EditBannerSvg from "@/assets/svg/media-image-plus.svg";
 import EditMailSvg from "@/assets/svg/at-sign.svg";
 import EditPwSvg from "@/assets/svg/lock.svg";
 import LogoutSvg from "@/assets/svg/log-out.svg";
-import { router } from "expo-router";
+import { router, useNavigation } from "expo-router";
 import { useAuth } from "@/app/context/AuthContext";
 import * as Application from "expo-application";
 import useStyle from "@/hooks/useStyle";

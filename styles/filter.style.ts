@@ -1,9 +1,10 @@
 import { FONTS, SIZING } from "@/constants/theme";
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 const filterStyles = StyleSheet.create({
   container: {
     paddingTop: SIZING.margin.vertical,
+    overflow: "visible",
   },
   box: {
     borderWidth: SIZING.border.md,
@@ -41,6 +42,7 @@ const filterStyles = StyleSheet.create({
     fontSize: SIZING.font.md,
     flexShrink: 1,
     flexGrow: 1,
+    overflow: Platform.OS === "android" ? "hidden" : "visible",
   },
 });
 

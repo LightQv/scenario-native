@@ -72,8 +72,9 @@ export default function SearchHeader({
             style={[filterStyles.placeholder, colorPrimary]}
             onChangeText={(text: string) => setQuery(text)}
             onSubmitEditing={onTextChange}
-            numberOfLines={1}
             value={query}
+            numberOfLines={1}
+            multiline={false}
             cursorColor={THEME?.color.main}
             selectionColor={THEME?.color.main}
             enablesReturnKeyAutomatically
