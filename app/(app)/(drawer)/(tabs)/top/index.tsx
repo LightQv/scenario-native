@@ -29,6 +29,7 @@ import OpenDrawer from "@/components/action/OpenDrawer";
 import screenStyles from "@/styles/screen.style";
 import { useScrollToTop } from "@react-navigation/native";
 import useStyle from "@/hooks/useStyle";
+import { StatusBar } from "expo-status-bar";
 
 type fetchParams = {
   type: string;
@@ -171,6 +172,7 @@ export default function TopScreen() {
 
   return (
     <View style={[{ flex: 1 }, backgroundPrimary]}>
+      <StatusBar animated style="auto" />
       <Animated.FlatList
         ref={listRef}
         contentContainerStyle={screenStyles.flatlistContainer}

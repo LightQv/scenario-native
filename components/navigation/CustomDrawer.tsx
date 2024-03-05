@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 import i18n from "@/services/i18n";
-import { router } from "expo-router";
+import { router, useNavigation, useSegments } from "expo-router";
 import { useAuth } from "@/app/context/AuthContext";
 import { BUTTON, FONTS, SIZING } from "@/constants/theme";
 import { useThemeContext } from "@/app/context/ThemeContext";
@@ -13,12 +13,30 @@ import SettingsSvg from "@/assets/svg/settings.svg";
 import LightSvg from "@/assets/svg/sun-light.svg";
 import DarkSvg from "@/assets/svg/half-moon.svg";
 import useStyle from "@/hooks/useStyle";
+import { useRouterHistory } from "@/app/context/RouterHistoryContext";
+import { useDrawerStatus } from "@react-navigation/drawer";
 
 export default function CustomDrawer(props: any) {
   const { user } = useAuth();
   const { THEME, darkTheme } = useThemeContext();
+  const { setHistory } = useRouterHistory();
+  const routes = useNavigation().getState().routeNames;
+  const pathname = useSegments();
+  const drawerStatus = useDrawerStatus();
   const { backgroundPrimary, colorPrimary, borderTopAlt, borderBottomAlt } =
     useStyle();
+
+  //--- Store last pathname to HistoryContext when navigate from Tabs Navigator to Profile Navigator ---//
+  /* This is workaround until a native method from Expo Router is released */
+  useEffect(() => {
+    if (
+      pathname.length > 0 &&
+      routes.some((el) => el === "details/[id]") &&
+      drawerStatus === "open"
+    ) {
+      setHistory!(`/${pathname.join("/")}`);
+    }
+  }, [drawerStatus]);
 
   return (
     <DrawerContentScrollView

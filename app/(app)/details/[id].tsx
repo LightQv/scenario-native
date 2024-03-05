@@ -132,7 +132,7 @@ export default function DetailsScreen() {
   );
   return (
     <View style={[{ flex: 1 }, backgroundPrimary]}>
-      <StatusBar style={type === "person" ? "auto" : "light"} />
+      <StatusBar style={type === "person" ? "auto" : "auto"} animated />
       <Animated.ScrollView
         style={screenStyles.noTabScreen}
         ref={scrollRef}
