@@ -25,6 +25,7 @@ import { WatchlistProvider } from "@/app/context/WatchlistContext";
 import CloseModal from "@/components/action/CloseModal";
 import { BannerProvider } from "./context/BannerContext";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { RouterHistoryProvider } from "./context/RouterHistoryContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -46,26 +47,26 @@ export default function App() {
 
   if (!fontsLoaded) return null;
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <GenreProvider>
-          <BannerProvider>
-            <WatchlistProvider>
-              <ViewProvider>
-                <BottomSheetModalProvider>
-                  <GestureHandlerRootView
-                    style={{ height: "100%", width: "100%" }}
-                  >
-                    <RootLayout />
-                  </GestureHandlerRootView>
-                  <Toasts overrideDarkMode={!darkTheme} />
-                </BottomSheetModalProvider>
-              </ViewProvider>
-            </WatchlistProvider>
-          </BannerProvider>
-        </GenreProvider>
-      </AuthProvider>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ height: "100%", width: "100%" }}>
+      <ThemeProvider>
+        <AuthProvider>
+          <RouterHistoryProvider>
+            <GenreProvider>
+              <BannerProvider>
+                <WatchlistProvider>
+                  <ViewProvider>
+                    <BottomSheetModalProvider>
+                      <RootLayout />
+                      <Toasts overrideDarkMode={!darkTheme} />
+                    </BottomSheetModalProvider>
+                  </ViewProvider>
+                </WatchlistProvider>
+              </BannerProvider>
+            </GenreProvider>
+          </RouterHistoryProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
 

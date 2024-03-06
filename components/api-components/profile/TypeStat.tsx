@@ -28,14 +28,14 @@ export default function TypeStat() {
     if (user && user.id) {
       try {
         const movieCount = await instanceAPI.get(
-          `/api/v1/user/view/count/movie/${user.id}`
+          `/api/v1/stats/count/movie/${user.id}`
         );
         if (movieCount) {
           setMovieCount(movieCount.data[0]._count);
         } else throw new Error();
 
         const tvCount = await instanceAPI.get(
-          `/api/v1/user/view/count/tv/${user.id}`
+          `/api/v1/stats/count/tv/${user.id}`
         );
         if (tvCount) {
           setTvCount(tvCount.data[0]._count);

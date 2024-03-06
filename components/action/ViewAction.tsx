@@ -38,12 +38,12 @@ export default function ViewAction({ data }: ViewActionProps) {
   const handleView = () => {
     if (viewed && viewObj) {
       instanceAPI
-        .delete(`/api/v1/view/${viewObj.id}`)
+        .delete(`/api/v1/views/${viewObj.id}`)
         .then(() => setSendView?.(true))
         .catch(() => notifyError(i18n.t("toast.error")));
     } else {
       instanceAPI
-        .post(`/api/v1/view`, {
+        .post(`/api/v1/views`, {
           tmdb_id: Number(id),
           genre_ids: genreIds as number[],
           poster_path: data.poster_path,

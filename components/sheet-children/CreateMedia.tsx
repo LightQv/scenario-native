@@ -23,10 +23,11 @@ export default function CreateMedia({ data }: CreateMediaProps) {
   const { user } = useAuth();
   const [watchlists, setWatchlists] = useState<Watchlist[] | null>(null);
   const [genreIds, setGenreIds] = useState<number[] | null>(null);
+
   useEffect(() => {
     if (user && user.id) {
       instanceAPI
-        .get(`/api/v1/user/watchlist/${user.id}`)
+        .get(`/api/v1/watchlists/${user.id}`)
         .then((res) => {
           setWatchlists(res.data);
           setUpdateWatchlist!(false);
@@ -54,7 +55,7 @@ export default function CreateMedia({ data }: CreateMediaProps) {
         );
         try {
           const isDeleted = await instanceAPI.delete(
-            `/api/v1/media/${mediaSelected.id}`
+            `/api/v1/medias/${mediaSelected.id}`
           );
           if (isDeleted) {
             setUpdateWatchlist!(true);
@@ -66,7 +67,7 @@ export default function CreateMedia({ data }: CreateMediaProps) {
         }
       } else {
         try {
-          const isCreated = await instanceAPI.post(`/api/v1/media`, {
+          const isCreated = await instanceAPI.post(`/api/v1/medias`, {
             tmdb_id: data.id,
             genre_ids: genreIds || data.genre_ids,
             poster_path: data.poster_path,

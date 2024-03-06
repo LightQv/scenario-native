@@ -20,12 +20,13 @@ import Animated, {
   FadeInLeft,
   FadeOutRight,
   interpolate,
+  runOnJS,
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
 } from "react-native-reanimated";
 import { useThemeContext } from "@/app/context/ThemeContext";
-import { StatusBar } from "expo-status-bar";
+import { StatusBar, StatusBarStyle } from "expo-status-bar";
 import Carousel, { CarouselRenderItem } from "react-native-reanimated-carousel";
 import MediaSkeleton from "@/components/api-components/card/MediaSkeleton";
 import EditMedia from "@/components/sheet-children/EditMedia";
@@ -74,7 +75,7 @@ export default function WatchlistDetailsScreen() {
   useEffect(() => {
     if (id) {
       instanceAPI
-        .get(`/api/v1/user/watchlist/detail/${id}?genre=${fetchParams.genre}`)
+        .get(`/api/v1/watchlists/detail/${id}?genre=${fetchParams.genre}`)
         .then((res) => {
           setMedia(res.data);
           setMediaList(res.data.medias);
@@ -112,9 +113,25 @@ export default function WatchlistDetailsScreen() {
   //--- FlatList ---//
   const listRef = useRef(null);
   const scrollOffset = useSharedValue(0);
+  const [statusStyle, setStatusStyle] = useState<StatusBarStyle>(
+    darkTheme ? "auto" : "inverted"
+  );
+  const toggleStatusBarStyle = (style: StatusBarStyle) => {
+    setStatusStyle(style);
+  }; /* Wrap setState for runOnJS */
+
+  /* runOnJS call the setState wrapper to work on JS side */
+  /* by default useAnimatedScrollHandler works on UI side */
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
-      scrollOffset.value = event.contentOffset.y;
+      scrollOffset.value = event.contentOffset.y; /* Update SharedValue */
+      if (scrollOffset.value >= SIZING.header.height) {
+        runOnJS(toggleStatusBarStyle)("auto");
+      } else {
+        darkTheme
+          ? runOnJS(toggleStatusBarStyle)("auto")
+          : runOnJS(toggleStatusBarStyle)("inverted");
+      }
     },
   });
   useScrollToTop(listRef); /* ScrollToTop on Tab Press */
@@ -252,7 +269,7 @@ export default function WatchlistDetailsScreen() {
 
   return (
     <View style={[{ flex: 1 }, backgroundPrimary]}>
-      <StatusBar style="light" />
+      <StatusBar style={statusStyle} animated />
       <Animated.FlatList
         ref={listRef}
         scrollEventThrottle={16}

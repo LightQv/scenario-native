@@ -58,11 +58,11 @@ export default function ModifyWatchlist() {
     if (user) {
       try {
         setLoading(true);
-        const isModified = await instanceAPI.put(`/api/v1/watchlist/${id}`, {
+        const isModified = await instanceAPI.put(`/api/v1/watchlists/${id}`, {
           title,
         });
         if (isModified) {
-          router.push({ pathname: "/watchlist" });
+          router.back();
           setUpdateWatchlist!(true);
           setLoading(false);
         }

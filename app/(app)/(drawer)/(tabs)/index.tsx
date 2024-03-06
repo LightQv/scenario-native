@@ -230,7 +230,7 @@ export default function DiscoverScreen() {
 
   return (
     <View style={[{ flex: 1 }, backgroundPrimary]}>
-      <StatusBar style="auto" />
+      <StatusBar style="auto" animated />
       <Animated.FlatList
         ref={listRef}
         contentContainerStyle={screenStyles.flatlistContainer}

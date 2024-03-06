@@ -51,7 +51,7 @@ export default function EditBanner() {
   useEffect(() => {
     if (user && user.id) {
       instanceAPI
-        .get(`/api/v1/user/banner/${user.id}`)
+        .get(`/api/v1/users/banner/${user.id}`)
         .then((res) => {
           setBanner(res.data.profileBanner);
         })
@@ -163,9 +163,9 @@ export default function EditBanner() {
   useEffect(() => {
     if (firebaseUpdated && bannerLink) {
       instanceAPI
-        .put(`/api/v1/user/banner/${user?.id}`, { bannerLink })
+        .put(`/api/v1/users/banner/${user?.id}`, { bannerLink })
         .then(() => {
-          router.push({ pathname: "/profile/settings" });
+          router.back();
           setUpdateBanner!(true);
         })
         .catch(() => notifyError(i18n.t("toast.error")));
@@ -206,7 +206,7 @@ export default function EditBanner() {
     const deleteBannerDatabase = async () => {
       const bannerLink = null;
       try {
-        const res = await instanceAPI.put(`/api/v1/user/banner/${user?.id}`, {
+        const res = await instanceAPI.put(`/api/v1/users/banner/${user?.id}`, {
           bannerLink,
         });
         if (res) {
