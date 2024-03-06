@@ -1,5 +1,10 @@
 import axios from "axios";
-import { VITE_TMDB_API_TOKEN, VITE_BACKEND_URL } from "@env";
+import {
+  VITE_TMDB_API_TOKEN,
+  VITE_BACKEND_URL_IOS,
+  VITE_BACKEND_URL_ANDROID,
+} from "@env";
+import { Platform } from "react-native";
 
 const instanceTmdb = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -9,7 +14,8 @@ const instanceTmdb = axios.create({
 });
 
 export const instanceAPI = axios.create({
-  baseURL: VITE_BACKEND_URL,
+  baseURL:
+    Platform.OS === "ios" ? VITE_BACKEND_URL_IOS : VITE_BACKEND_URL_ANDROID,
   withCredentials: true,
 });
 

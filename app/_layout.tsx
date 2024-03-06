@@ -47,28 +47,26 @@ export default function App() {
 
   if (!fontsLoaded) return null;
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <RouterHistoryProvider>
-          <GenreProvider>
-            <BannerProvider>
-              <WatchlistProvider>
-                <ViewProvider>
-                  <BottomSheetModalProvider>
-                    <GestureHandlerRootView
-                      style={{ height: "100%", width: "100%" }}
-                    >
+    <GestureHandlerRootView style={{ height: "100%", width: "100%" }}>
+      <ThemeProvider>
+        <AuthProvider>
+          <RouterHistoryProvider>
+            <GenreProvider>
+              <BannerProvider>
+                <WatchlistProvider>
+                  <ViewProvider>
+                    <BottomSheetModalProvider>
                       <RootLayout />
-                    </GestureHandlerRootView>
-                    <Toasts overrideDarkMode={!darkTheme} />
-                  </BottomSheetModalProvider>
-                </ViewProvider>
-              </WatchlistProvider>
-            </BannerProvider>
-          </GenreProvider>
-        </RouterHistoryProvider>
-      </AuthProvider>
-    </ThemeProvider>
+                      <Toasts overrideDarkMode={!darkTheme} />
+                    </BottomSheetModalProvider>
+                  </ViewProvider>
+                </WatchlistProvider>
+              </BannerProvider>
+            </GenreProvider>
+          </RouterHistoryProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
 

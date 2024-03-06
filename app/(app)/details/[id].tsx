@@ -12,7 +12,7 @@ import { BottomSheetModal, BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import instanceTmdb from "@/services/instances";
 import i18n from "@/services/i18n";
 import { notifyError } from "@/components/toasts/Toast";
-import { BACKDROP } from "@/constants/theme";
+import { BACKDROP, SIZING } from "@/constants/theme";
 import Banner from "@/components/tmdb-components/details/content/Banner";
 import Header from "@/components/tmdb-components/details/content/Header";
 import List from "@/components/tmdb-components/details/content/List";
@@ -25,7 +25,9 @@ import ViewAction from "@/components/action/ViewAction";
 import Animated, {
   FadeInLeft,
   FadeOutRight,
+  runOnJS,
   useAnimatedRef,
+  useAnimatedScrollHandler,
   useScrollViewOffset,
 } from "react-native-reanimated";
 import ShareMedia from "@/components/action/ShareMedia";
@@ -34,14 +36,14 @@ import BackAction from "@/components/action/BackAction";
 import AddToWatchlist from "@/components/action/AddToWatchlist";
 import DetailHeader from "@/components/navigation/DetailHeader";
 import HeaderTitle from "@/components/navigation/HeaderTitle";
-import { StatusBar } from "expo-status-bar";
 import screenStyles from "@/styles/screen.style";
 import CreateMedia from "@/components/sheet-children/CreateMedia";
 import useStyle from "@/hooks/useStyle";
+import { StatusBar, StatusBarStyle } from "expo-status-bar";
 
 export default function DetailsScreen() {
   const { id, type } = useLocalSearchParams();
-  const { THEME } = useThemeContext();
+  const { THEME, darkTheme } = useThemeContext();
   const { backgroundPrimary, backgroundQuad } = useStyle();
   const [data, setData] = useState<TmdbDetails | null>(null);
   const [person, setPerson] = useState<TmdbDetails | null>(null);
@@ -113,6 +115,36 @@ export default function DetailsScreen() {
   //--- ScrollView ---//
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);
+  const [statusStyle, setStatusStyle] = useState<StatusBarStyle | undefined>(
+    undefined
+  );
+  /* Initialize statusStyle's state based on data type */
+  useEffect(() => {
+    if (type === "person" || darkTheme) {
+      setStatusStyle("auto");
+    } else setStatusStyle("inverted");
+  }, [type, darkTheme]);
+
+  /* Define StatusBar style based onScroll */
+  const toggleStatusBarStyle = (style: StatusBarStyle) => {
+    setStatusStyle(style);
+  }; /* Wrap setState for runOnJS */
+
+  /* runOnJS call the setState wrapper to work on JS side */
+  /* by default useAnimatedScrollHandler works on UI side */
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: () => {
+      if (type === "person") {
+        runOnJS(toggleStatusBarStyle)("auto");
+      } else {
+        scrollOffset.value >= SIZING.header.height
+          ? runOnJS(toggleStatusBarStyle)("auto")
+          : darkTheme
+            ? runOnJS(toggleStatusBarStyle)("auto")
+            : runOnJS(toggleStatusBarStyle)("inverted");
+      }
+    },
+  });
 
   //--- Bottom Sheet ---//
   /* Sheet Cfg */
@@ -130,15 +162,17 @@ export default function DetailsScreen() {
     ),
     []
   );
+
   return (
     <View style={[{ flex: 1 }, backgroundPrimary]}>
-      <StatusBar style={type === "person" ? "auto" : "auto"} animated />
+      <StatusBar style={statusStyle} animated />
       <Animated.ScrollView
         style={screenStyles.noTabScreen}
         ref={scrollRef}
         scrollEventThrottle={16}
         entering={FadeInLeft}
         exiting={FadeOutRight}
+        onScroll={scrollHandler}
       >
         {type !== "person" && data && (
           <>
