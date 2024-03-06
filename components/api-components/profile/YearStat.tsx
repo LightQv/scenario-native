@@ -36,14 +36,14 @@ export default function YearStat() {
       if (user && user.id) {
         try {
           const movieView = await instanceAPI.get(
-            `/api/v1/user/view/year/movie/${user.id}`
+            `/api/v1/stats/year/movie/${user.id}`
           );
           if (movieView) {
             setMovieView(movieView.data);
           } else throw new Error();
 
           const tvView = await instanceAPI.get(
-            `/api/v1/user/view/year/tv/${user.id}`
+            `/api/v1/stats/year/tv/${user.id}`
           );
           if (tvView) {
             setTvView(tvView.data);

@@ -24,7 +24,7 @@ export default function EditMedia({ data }: EditMediaProps) {
   useEffect(() => {
     if (user && user.id) {
       instanceAPI
-        .get(`/api/v1/user/watchlist/${user.id}`)
+        .get(`/api/v1/watchlists/${user.id}`)
         .then((res) => {
           setWatchlists(res.data);
           setUpdateWatchlist!(false);
@@ -40,7 +40,7 @@ export default function EditMedia({ data }: EditMediaProps) {
   const handleWatchlist = async (watchlistId: string) => {
     if (watchlists && data) {
       try {
-        const isEdited = await instanceAPI.put(`/api/v1/media/${data.id}`, {
+        const isEdited = await instanceAPI.put(`/api/v1/medias/${data.id}`, {
           watchlistId: watchlistId,
         });
         if (isEdited) {

@@ -55,7 +55,7 @@ export default function EditEmail() {
     if (user) {
       try {
         const isUpdated = await instanceAPI.put(
-          `/api/v1/user/email/${user.id}`,
+          `/api/v1/users/email/${user.id}`,
           {
             email,
           }

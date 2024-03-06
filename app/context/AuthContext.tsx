@@ -134,7 +134,7 @@ export function AuthProvider({ children }: ContextProps) {
 
   const logout = async () => {
     try {
-      const isLogout = await instanceAPI.get("/auth/logout");
+      const isLogout = await instanceAPI.get("/api/v1/auth/logout");
       if (isLogout) {
         setAuthState({ ...authState, loading: true });
         await SecureStore.deleteItemAsync("user");
@@ -148,7 +148,7 @@ export function AuthProvider({ children }: ContextProps) {
 
   const expired = async () => {
     try {
-      const isExpired = await instanceAPI.get("/auth/logout");
+      const isExpired = await instanceAPI.get("/api/v1/auth/logout");
       if (isExpired) {
         setSessionExpired(true);
         await SecureStore.deleteItemAsync("user");

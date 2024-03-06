@@ -110,7 +110,7 @@ export default function WatchlistCard({ data }: WatchlistCardProps) {
 
   const deleteWatchlist = async () => {
     try {
-      const res = await instanceAPI.delete(`/api/v1/watchlist/${data.id}`);
+      const res = await instanceAPI.delete(`/api/v1/watchlists/${data.id}`);
       if (res) {
         setUpdateWatchlist!(true);
       }

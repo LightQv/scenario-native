@@ -75,7 +75,7 @@ export default function WatchlistDetailsScreen() {
   useEffect(() => {
     if (id) {
       instanceAPI
-        .get(`/api/v1/user/watchlist/detail/${id}?genre=${fetchParams.genre}`)
+        .get(`/api/v1/watchlists/detail/${id}?genre=${fetchParams.genre}`)
         .then((res) => {
           setMedia(res.data);
           setMediaList(res.data.medias);
