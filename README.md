@@ -32,4 +32,3 @@ I'm not a part of Apple Developer Program, therefore I'm not able to share the a
 So, here's a Youtube video showing the main functionnalities.
 
 https://www.youtube.com/watch?v=0biseATo-DM
-[<img src="https://www.youtube.com/watch?v=0biseATo-DM" width="50%">](https://www.youtube.com/watch?v=0biseATo-DM "Demo")
