@@ -70,7 +70,7 @@ export default function DeleteAccount() {
   const deleteAccount = async () => {
     if (user) {
       try {
-        const isDeleted = await instanceAPI.delete(`/api/v1/user/${user.id}`);
+        const isDeleted = await instanceAPI.delete(`/api/v1/users/${user.id}`);
         if (isDeleted) {
           onLogout!();
           notifySuccess(i18n.t("toast.success.profile.delete"));

@@ -24,7 +24,7 @@ export default function AddMedia({ data }: AddMediaProps) {
   useEffect(() => {
     if (user && user.id) {
       instanceAPI
-        .get(`/api/v1/user/watchlist/${user.id}`)
+        .get(`/api/v1/watchlists/${user.id}`)
         .then((res) => {
           setWatchlists(res.data);
           setUpdateWatchlist!(false);
@@ -50,7 +50,7 @@ export default function AddMedia({ data }: AddMediaProps) {
         );
         try {
           const isDeleted = await instanceAPI.delete(
-            `/api/v1/media/${mediaSelected.id}`
+            `/api/v1/medias/${mediaSelected.id}`
           );
           if (isDeleted) {
             setUpdateWatchlist!(true);
@@ -62,7 +62,7 @@ export default function AddMedia({ data }: AddMediaProps) {
         }
       } else {
         try {
-          const isCreated = await instanceAPI.post(`/api/v1/media`, {
+          const isCreated = await instanceAPI.post(`/api/v1/medias`, {
             tmdb_id: data.tmdb_id,
             genre_ids: data.genre_ids,
             poster_path: data.poster_path,

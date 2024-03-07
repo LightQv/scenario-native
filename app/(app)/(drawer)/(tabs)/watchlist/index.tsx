@@ -40,7 +40,7 @@ export default function WatchlistScreen() {
   useEffect(() => {
     if (user && user.id) {
       instanceAPI
-        .get(`/api/v1/user/watchlist/${user.id}`)
+        .get(`/api/v1/watchlists/${user.id}`)
         .then((res) => {
           setWatchlist(res.data);
         })

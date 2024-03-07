@@ -101,7 +101,7 @@ export default function MediaCard({
   const handleView = () => {
     if (viewed && viewObj) {
       instanceAPI
-        .delete(`/api/v1/view/${viewObj.id}`)
+        .delete(`/api/v1/views/${viewObj.id}`)
         .then(() => {
           setSendView?.(true);
           swipeRef.current?.close();
@@ -203,7 +203,7 @@ export default function MediaCard({
 
   const deleteMedia = async () => {
     try {
-      const res = await instanceAPI.delete(`/api/v1/media/${data.id}`);
+      const res = await instanceAPI.delete(`/api/v1/medias/${data.id}`);
       if (res) {
         setUpdateWatchlist!(true);
       }

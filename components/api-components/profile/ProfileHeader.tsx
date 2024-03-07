@@ -40,7 +40,7 @@ export default function ProfileHeader({ title }: ProfileHeaderProps) {
     if (user && user.id) {
       try {
         const movieCount = await instanceAPI.get(
-          `/api/v1/user/view/count/movie/${user.id}`
+          `/api/v1/stats/count/movie/${user.id}`
         );
         if (movieCount) {
           movieCount.data[0]
@@ -49,7 +49,7 @@ export default function ProfileHeader({ title }: ProfileHeaderProps) {
         } else throw new Error();
 
         const tvCount = await instanceAPI.get(
-          `/api/v1/user/view/count/tv/${user.id}`
+          `/api/v1/stats/count/tv/${user.id}`
         );
         if (tvCount) {
           tvCount.data[0] ? setTvCount(tvCount.data[0]?._count) : setTvCount(0);
@@ -66,14 +66,14 @@ export default function ProfileHeader({ title }: ProfileHeaderProps) {
     if (user && user.id) {
       try {
         const movieRuntime = await instanceAPI.get(
-          `/api/v1/user/view/runtime/movie/${user.id}`
+          `/api/v1/stats/runtime/movie/${user.id}`
         );
         if (movieRuntime) {
           setMovieRuntime(getTotalRuntime(movieRuntime.data));
         }
 
         const tvRuntime = await instanceAPI.get(
-          `/api/v1/user/view/runtime/tv/${user.id}`
+          `/api/v1/stats/runtime/tv/${user.id}`
         );
         if (tvRuntime) {
           setTvRuntime(getTotalRuntime(tvRuntime.data));

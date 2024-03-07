@@ -57,12 +57,12 @@ export default function CreateWatchlist() {
     if (user) {
       try {
         setLoading(true);
-        const isCreated = await instanceAPI.post(`/api/v1/watchlist`, {
+        const isCreated = await instanceAPI.post(`/api/v1/watchlists`, {
           title: title,
           authorId: user.id,
         });
         if (isCreated) {
-          router.push({ pathname: "/watchlist" });
+          router.back();
           setUpdateWatchlist!(true);
           setLoading(false);
         }

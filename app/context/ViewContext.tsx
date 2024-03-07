@@ -32,7 +32,7 @@ export function ViewProvider({ children }: ContextProps) {
   const getViews = async () => {
     if (user && user.id) {
       try {
-        const userViews = await instanceAPI.get(`/api/v1/user/view/${user.id}`);
+        const userViews = await instanceAPI.get(`/api/v1/views/${user.id}`);
         if (userViews) {
           setViews(userViews.data);
           setSendView(false);

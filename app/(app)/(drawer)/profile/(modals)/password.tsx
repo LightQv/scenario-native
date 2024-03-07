@@ -60,7 +60,7 @@ export default function EditPassword() {
     if (user) {
       try {
         const isUpdated = await instanceAPI.put(
-          `/api/v1/user/password/${user.id}`,
+          `/api/v1/users/password/${user.id}`,
           {
             password,
             confirmPassword,

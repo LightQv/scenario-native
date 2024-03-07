@@ -108,7 +108,7 @@ export default function ViewCard({
   const deleteView = async () => {
     if (viewObj) {
       try {
-        const res = await instanceAPI.delete(`/api/v1/view/${viewObj.id}`);
+        const res = await instanceAPI.delete(`/api/v1/views/${viewObj.id}`);
         if (res) {
           setSendView!(true);
           swipeRef.current?.close();

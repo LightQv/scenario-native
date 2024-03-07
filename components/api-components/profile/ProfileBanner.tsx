@@ -33,7 +33,7 @@ export default function ProfileBanner({ offset }: ProfileBannerProps) {
   useEffect(() => {
     if (user && user.id) {
       instanceAPI
-        .get(`/api/v1/user/banner/${user.id}`)
+        .get(`/api/v1/users/banner/${user.id}`)
         .then((res) => {
           if (res.data.profileBanner !== null) {
             setBanner(res.data.profileBanner);

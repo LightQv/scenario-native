@@ -63,7 +63,7 @@ export default function ViewsScreen() {
     if (user?.id && params.type) {
       instanceAPI
         .get(
-          `/api/v1/user/view/${params.type}/${user.id}?genre=${fetchParams.genre}`
+          `/api/v1/views/${params.type}/${user.id}?genre=${fetchParams.genre}`
         )
         .then(({ data }) => {
           setView(data);
